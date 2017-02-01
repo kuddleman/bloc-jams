@@ -30,6 +30,21 @@
      ]
  };
 
+var albumHandel = {
+     title: 'Concerti Grossi of Handel',
+     artist: 'Fabio Biondi and Europa Galante',
+     label: 'ABC',
+     year: '2010',
+     albumArtUrl: 'assets/images/album_covers/08.png',
+     songs: [
+         { title: 'Concerto #1 in D Major', duration: '14:01' },
+         { title: 'Concerto #2 in F Major', duration: '12:01' },
+         { title: 'Concerto #3 in A Major', duration: '16:21'},
+         { title: 'Concerto #4 in B-flat Major', duration: '15:14' },
+         { title: 'Concerto #5 in C Major', duration: '16:15'}
+     ]
+ };
+
 var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -41,30 +56,43 @@ var createSongRow = function(songNumber, songName, songLength) {
  
      return template;
  };
+//Select elements that we want to populate with text dynamically
+var albumTitle = document.getElementsByClassName('album-view-title')[0];
+var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
+
 
 var setCurrentAlbum = function(album) {
-     // #1
-     var albumTitle = document.getElementsByClassName('album-view-title')[0];
-     var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-     var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-     var albumImage = document.getElementsByClassName('album-cover-art')[0];
-     var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
- 
-     // #2
-     albumTitle.firstChild.nodeValue = album.title;
+     
+     // Assign value to each part of the album (text, images)
+     albumTitle.firstChild.nodeValue = album.name;
      albumArtist.firstChild.nodeValue = album.artist;
      albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
      albumImage.setAttribute('src', album.albumArtUrl);
  
-     // #3
+     // Clear contents of album song list container
      albumSongList.innerHTML = '';
  
      // #4
      for (var i = 0; i < album.songs.length; i++) {
-         albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
+         albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].length);
      }
  };
  
  window.onload = function() {
      setCurrentAlbum(albumPicasso);
+	 
+	 var albums = [albumPicasso, albumMarconi, albumHandel];
+	 var index = 1;
+	 albumImage.addEventListener("click", function(event)){
+			setCurrentAlbum(albums[index]);					 
+			index++;
+	        if (index == albums.length) {
+				index = 0;
+			}
+								 });
  };
+
+
