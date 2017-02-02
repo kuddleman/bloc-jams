@@ -92,7 +92,7 @@ var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></
              // Revert the content back to the number
 			// Selects first child element, which is the song-item-number element
              this.children[0].innerHTML = this.children[0].getAttribute('data-song-number');
-         
+
          });
      }
 
