@@ -27,4 +27,16 @@ window.onload = function(){
 		}
 	});
 }
+
+findParentByClassName(){
+	if(element.parent('a').length < 1){
+		console.log("No parent found")
+	}else {
+		if(element.parents('.a').attr('id')) {
+		console.log("No parent found with that class name")
+		}
+	}
+		
+	    
+}
 		
