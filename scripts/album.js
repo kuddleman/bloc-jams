@@ -39,7 +39,19 @@ var createSongRow = function(songNumber, songName, songLength) {
       + '</tr>'
       ;
  
-     return $(template);
+    var $row = $(template);
+	
+	 var onHover = function(event) {
+         // Placeholder for function logic
+     };
+     var offHover = function(event) {
+         // Placeholder for function logic
+     };
+	 $row.find('.song-item-number').click(clickHandler);
+     // #2
+     $row.hover(onHover, offHover);
+     // #3
+     return $row;
  };
 
 var setCurrentAlbum = function(album) {
@@ -72,7 +84,7 @@ var songRows = document.getElementsByClassName('album-view-song-item');
 
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
  
- window.onload = function() {
+ $(document).ready(function() {
      setCurrentAlbum(albumPicasso);
 
 
@@ -80,22 +92,13 @@ var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></
 
  
 
-     songListContainer.addEventListener('mouseover', function(event) {
-          // Only target individual song rows during event delegation
-         if (event.target.parentElement.className === 'album-view-song-item') {
-              event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
-         }
-        
-     });
+     
 	 
 	 for (var i = 0; i < songRows.length; i++) {
-         songRows[i].addEventListener('mouseleave', function(event) {
-             // Revert the content back to the number
-			// Selects first child element, which is the song-item-number element
-             this.children[0].innerHTML = this.children[0].getAttribute('data-song-number');
-
+         songRows[i].addEventListener('click', function(event) {
+             clickHandler(event.target);
          });
      }
 
- }
+ });
 
